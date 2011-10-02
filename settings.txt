@@ -1,0 +1,11 @@
+///settings.txt///
+///This file is used to configure settings used by HighAndLow///
+///varName varType value///
+
+width int 800
+height int 800
+stepSizeX int 40
+stepSizeY int 40
+maxHeight float 2.9
+minHeight float 0
+maxHeightFrequency 0.5
