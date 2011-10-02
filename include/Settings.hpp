@@ -12,7 +12,7 @@ class Settings: public KnownObject<Settings> {
 
         Settings();
 
-        void load();
+        void load(std::string const& fileName);
 
         template <typename T>
         T const getValueOf(char const* varName) const {
@@ -61,6 +61,9 @@ class Settings: public KnownObject<Settings> {
 
 
         std::map<std::string, GenericSetting> settings_;
+
+        void loadDefault();
+        void loadFromFile(std::string const& fileName);
 };
 
 # endif //SETTINGS_HPP

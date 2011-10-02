@@ -12,9 +12,15 @@ MapGenerator::MapGenerator():
     randomPointsVer_() {}
 
 std::vector<unsigned char> const MapGenerator::generateHeightMap() {
+
+    std::cout << "Generating height map..." << std::endl;
+
     auto settings(Settings::pointer());
     generateRandomPoints();
     interpolate();
+
+    std::cout << "Generated height map." << std::endl;
+
 
     return heightMap_;
 }
@@ -73,7 +79,7 @@ void MapGenerator::interpolate() {
         for (auto x(0); x <width; ++x) {
 
             auto colorVal((interpolatedPointsHor[x] - settings->getValueOf<float>("minHeight")) * relHeightDiff);
-            heightMap_[x+y*randomPointsHor_.size()] = colorVal;
+            heightMap_[x+y*width] = colorVal;
         }
     }
 }

@@ -3,6 +3,9 @@
 # include "include/bitmap_image.hpp"
 
 void BMPwriter::save(std::string const& fileName, std::vector<unsigned char> const& pixels, int width, int height) const{
+
+    std::cout << "Saving image to " << fileName << "..." << std::endl;
+
     bitmap_image bmpFile(width, height);
 
     for (auto y(0); y <height; ++y) {
@@ -13,4 +16,6 @@ void BMPwriter::save(std::string const& fileName, std::vector<unsigned char> con
     }
 
     bmpFile.save_image(fileName);
+
+    std::cout << "Image saved." << std::endl;
 }
