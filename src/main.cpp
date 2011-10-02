@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     std::string fileName("settings.txt");
     std::string targetName("heightMap.bmp");
 
-    if (argc > 2) {
+    if (argc > 1) {
 
         for (int argCount(1); argCount < argc; ++argCount) {
             std::string argVal(argv[argCount]);
@@ -35,11 +35,9 @@ int main(int argc, char* argv[]) {
             }
 
             else if (argVal == "--help" || argVal == "-h") {
-                if ((argCount + 1) < argc) {
-                    showHelpMessage();
-                }
-                else showErrorMessage();
+                showHelpMessage();;
             }
+
             else showErrorMessage();
 
         }
@@ -90,9 +88,9 @@ void showErrorMessage() {
 
 void showHelpMessage() {
     std::cout << "Usage: HighAndLow {[OPTION] [ARGUMENT]}*"<<std::endl;
-    std::cout << "Options: "<<std::endl;
+    std::cout << "Available options: "<<std::endl;
     std::cout << " -l | --load [FILENAME]             load settings from file"<<std::endl;
-    std::cout << " -o | --out [FILENAME]              set target file to save the height map in"<<std::endl;
+    std::cout << " -o | --out [FILENAME]              set target file for saving"<<std::endl;
     std::cout << " -h | --help [FILENAME]             show this help message"<<std::endl;
     std::exit(0);
 }
