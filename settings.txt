@@ -4,8 +4,8 @@
 
 width int 800
 height int 800
-stepSizeX int 40
-stepSizeY int 40
-maxHeight float 2.9
+stepSizeX int 10
+stepSizeY int 10
+maxHeight float 3
 minHeight float 0
-maxHeightFrequency 0.5
+maxHeightFrequency float 0.2
