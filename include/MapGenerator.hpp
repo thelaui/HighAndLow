@@ -18,8 +18,7 @@ class MapGenerator {
 
         void interpolate();
 
-        float lagrange(int x, std::map<int, float> & points) const;
-        float lagrangeBasis(int x, int x_i, std::map<int, float> const& points) const;
+        float linear(int x, std::map<int, float> const& points) const;
 };
 
 

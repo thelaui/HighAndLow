@@ -4,6 +4,7 @@
 # include "include/Randomizer.hpp"
 
 # include <cmath>
+# include <cfloat>
 # include <iostream>
 
 MapGenerator::MapGenerator():
@@ -38,16 +39,28 @@ void MapGenerator::generateRandomPoints() {
     auto randomizer(Randomizer::pointer());
 
     for (int step(0); step < width; step += stepX) {
+        float height(0.f);
         if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
-            randomPointsHor_.insert(std::make_pair(step,maxHeight));
-        else randomPointsHor_.insert(std::make_pair(step,randomizer->random(minHeight, maxHeight)));
+            height = maxHeight;
+        else height = randomizer->random(minHeight, maxHeight);
+
+        randomPointsHor_.insert(std::make_pair(step,height));
     }
 
+    randomPointsHor_.insert(std::make_pair(width-1,randomizer->random(minHeight, maxHeight)));
+
+
+
     for (int step(0); step < height; step += stepY) {
+        float height(0.f);
         if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
-            randomPointsVer_[step] = maxHeight;
-        else randomPointsVer_[step] = randomizer->random(minHeight, maxHeight);
+            height = maxHeight;
+        else height = randomizer->random(minHeight, maxHeight);
+
+        randomPointsVer_.insert(std::make_pair(step,height));
     }
+
+    randomPointsVer_.insert(std::make_pair(height-1,randomizer->random(minHeight, maxHeight)));
 
 }
 
@@ -60,17 +73,26 @@ void MapGenerator::interpolate() {
     ///Setting up a new vector for interpolation by filling it with the random values calculated already.
 
     std::vector<float> interpolatedPointsHor(width);
+    std::vector<float> interpolatedPointsVer(height);
 
     for (auto point : randomPointsHor_)
         interpolatedPointsHor[point.first] = point.second;
+
+    for (auto point : randomPointsVer_)
+        interpolatedPointsVer[point.first] = point.second;
 
     ///Interpolate between the random values.
 
     for (int i(0); i < interpolatedPointsHor.size(); ++i)
         if (interpolatedPointsHor[i] == 0)
-            interpolatedPointsHor[i] = lagrange(i, randomPointsHor_);
+            interpolatedPointsHor[i] = linear(i, randomPointsHor_);
+
+    for (int i(0); i < interpolatedPointsVer.size(); ++i)
+        if (interpolatedPointsVer[i] == 0)
+            interpolatedPointsVer[i] = linear(i, randomPointsVer_);
 
     ///Set the color values in the height map
+
 
     auto heightDiff(std::fabs(settings->getValueOf<float>("maxHeight")-settings->getValueOf<float>("minHeight")));
     auto relHeightDiff(255 / (heightDiff > 0.f ? heightDiff : 1.f));
@@ -78,32 +100,24 @@ void MapGenerator::interpolate() {
     for (auto y(0); y <height; ++y) {
         for (auto x(0); x <width; ++x) {
 
-            auto colorVal((interpolatedPointsHor[x] - settings->getValueOf<float>("minHeight")) * relHeightDiff);
+            auto colorVal(((interpolatedPointsHor[x] + interpolatedPointsVer[y])*0.5f - settings->getValueOf<float>("minHeight")) * relHeightDiff);
             heightMap_[x+y*width] = colorVal;
         }
     }
 }
 
-float MapGenerator::lagrange(int x, std::map<int ,float> & points) const {
+
+float MapGenerator::linear(int x, std::map<int ,float> const& points) const {
     float result(0.f);
-
-    int count(0);
-    for (auto point : points) {
-        result += point.second * lagrangeBasis(x, count, points);
-        ++count;
-    }
-    return result;
-}
-
-float MapGenerator::lagrangeBasis(int x, int x_i, std::map<int, float> const& points) const {
-    float result(1.f);
-
-    for (int j(0); j < points.size(); ++j) {
-        if (x_i != j) {
-            result *= (x-j)/(x_i-j);
+    auto lastPoint(points.begin());
+    auto startPoint(points.begin());
+    for (auto point(++startPoint); point != points.end(); ++point) {
+        if (x > lastPoint->first && x < point->first) {
+            result = lastPoint->second + ((point->second-lastPoint->second)/(point->first - lastPoint->first) * (x - lastPoint->first));
+            break;
         }
+        else lastPoint = point;
     }
 
     return result;
 }
-
