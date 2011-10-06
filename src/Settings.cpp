@@ -91,10 +91,16 @@ void Settings::loadDefault() {
     settings_["height"]=GenericSetting(&intVal);
 
     intVal = 40;
-    settings_["stepSizeX"]=GenericSetting(&intVal);
+    settings_["stepSizeXMin"]=GenericSetting(&intVal);
 
     intVal = 40;
-    settings_["stepSizeY"]=GenericSetting(&intVal);
+    settings_["stepSizeXMax"]=GenericSetting(&intVal);
+
+    intVal = 40;
+    settings_["stepSizeYMin"]=GenericSetting(&intVal);
+
+    intVal = 40;
+    settings_["stepSizeYMax"]=GenericSetting(&intVal);
 
     float floatVal(1.f);
     settings_["maxHeight"]=GenericSetting(&floatVal);

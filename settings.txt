@@ -2,10 +2,12 @@
 ///This file is used to configure settings used by HighAndLow///
 ///varName varType value///
 
-width int 80
-height int 80
-stepSizeX int 14
-stepSizeY int 14
-maxHeight float 1
+width int 640
+height int 640
+stepSizeXMin int 50
+stepSizeXMax int 200
+stepSizeYMin int 80
+stepSizeYMax int 100
+maxHeight float 0.5
 minHeight float 0
 maxHeightFrequency float 0.2

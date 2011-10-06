@@ -28,8 +28,10 @@ std::vector<unsigned char> const MapGenerator::generateHeightMap() {
 
 void MapGenerator::generateRandomPoints() {
     auto settings(Settings::pointer());
-    auto stepX(settings->getValueOf<int>("stepSizeX"));
-    auto stepY(settings->getValueOf<int>("stepSizeY"));
+    auto stepXMin(settings->getValueOf<int>("stepSizeXMin"));
+    auto stepXMax(settings->getValueOf<int>("stepSizeXMax"));
+    auto stepYMin(settings->getValueOf<int>("stepSizeYMin"));
+    auto stepYMax(settings->getValueOf<int>("stepSizeYMax"));
     auto maxHeightFrequency(settings->getValueOf<float>("maxHeightFrequency"));
     auto maxHeight(settings->getValueOf<float>("maxHeight"));
     auto minHeight(settings->getValueOf<float>("minHeight"));
@@ -38,7 +40,7 @@ void MapGenerator::generateRandomPoints() {
 
     auto randomizer(Randomizer::pointer());
 
-    for (int step(0); step < width; step += stepX) {
+    for (int step(0); step < width; step += randomizer->random(stepXMin, stepXMax)) {
         float height(0.f);
         if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
             height = maxHeight;
@@ -51,7 +53,7 @@ void MapGenerator::generateRandomPoints() {
 
 
 
-    for (int step(0); step < height; step += stepY) {
+    for (int step(0); step < height; step += randomizer->random(stepYMin, stepYMax)) {
         float height(0.f);
         if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
             height = maxHeight;
