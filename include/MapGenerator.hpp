@@ -19,6 +19,7 @@ class MapGenerator {
         void interpolate();
 
         float linear(int x, std::map<int, float> const& points) const;
+        void generateNoise();
 };
 
 

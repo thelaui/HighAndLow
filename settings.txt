@@ -8,6 +8,7 @@ stepSizeXMin int 50
 stepSizeXMax int 200
 stepSizeYMin int 80
 stepSizeYMax int 100
-maxHeight float 0.5
+maxHeight float 0.01
 minHeight float 0
 maxHeightFrequency float 0.2
+noiseFactor int 5

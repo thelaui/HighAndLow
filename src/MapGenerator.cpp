@@ -19,6 +19,7 @@ std::vector<unsigned char> const MapGenerator::generateHeightMap() {
     auto settings(Settings::pointer());
     generateRandomPoints();
     interpolate();
+    generateNoise();
 
     std::cout << "Generated height map." << std::endl;
 
@@ -122,4 +123,16 @@ float MapGenerator::linear(int x, std::map<int ,float> const& points) const {
     }
 
     return result;
+}
+
+void MapGenerator::generateNoise() {
+    auto randomizer(Randomizer::pointer());
+    auto settings(Settings::pointer());
+
+    auto noiseFactor(std::abs(settings->getValueOf<int>("noiseFactor")));
+
+    for (auto i(0); i < heightMap_.size(); ++i) {
+        int randomDiff(randomizer->random(-noiseFactor,noiseFactor));
+        heightMap_[i]+= randomDiff;
+    }
 }

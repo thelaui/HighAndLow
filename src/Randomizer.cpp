@@ -2,6 +2,7 @@
 
 # include <cstdlib>
 # include <ctime>
+# include <iostream>
 
 void Randomizer::init() const {
     std::srand(std::time(NULL));
@@ -12,5 +13,5 @@ float Randomizer::random(float begin, float end) const {
 }
 
 int Randomizer::random(int begin, int end) const {
-    return std::rand() / RAND_MAX * (end - begin) + begin;
+    return std::rand() % (end - begin + 1) + begin;
 }
