@@ -16,7 +16,6 @@ std::vector<unsigned char> const MapGenerator::generateHeightMap() {
 
     std::cout << "Generating height map..." << std::endl;
 
-    auto settings(Settings::pointer());
     generateRandomPoints();
     interpolate();
     generateNoise();
@@ -41,6 +40,8 @@ void MapGenerator::generateRandomPoints() {
 
     auto randomizer(Randomizer::pointer());
 
+    ///Fill the random point lists with random points at random positions and add points at the end of the lists
+
     for (int step(0); step < width; step += randomizer->random(stepXMin, stepXMax)) {
         float height(0.f);
         if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
@@ -50,7 +51,12 @@ void MapGenerator::generateRandomPoints() {
         randomPointsHor_.insert(std::make_pair(step,height));
     }
 
-    randomPointsHor_.insert(std::make_pair(width-1,randomizer->random(minHeight, maxHeight)));
+    float value(0.f);
+    if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
+        value = maxHeight;
+    else value = randomizer->random(minHeight, maxHeight);
+
+    randomPointsHor_.insert(std::make_pair(width-1,value));
 
 
 
@@ -63,7 +69,12 @@ void MapGenerator::generateRandomPoints() {
         randomPointsVer_.insert(std::make_pair(step,height));
     }
 
-    randomPointsVer_.insert(std::make_pair(height-1,randomizer->random(minHeight, maxHeight)));
+    value = 0.f;
+    if (randomizer->random(0.f, 1.f) <= maxHeightFrequency)
+        value = maxHeight;
+    else value = randomizer->random(minHeight, maxHeight);
+
+    randomPointsVer_.insert(std::make_pair(height-1,value));
 
 }
 
@@ -133,6 +144,11 @@ void MapGenerator::generateNoise() {
 
     for (auto i(0); i < heightMap_.size(); ++i) {
         int randomDiff(randomizer->random(-noiseFactor,noiseFactor));
-        heightMap_[i]+= randomDiff;
+        auto newVal(static_cast<int>(heightMap_[i] + randomDiff));
+        if (newVal > 255)
+            heightMap_[i] = 255;
+        else if (newVal < 0)
+            heightMap_[i] = 0;
+        else heightMap_[i] = newVal;
     }
 }
