@@ -90,26 +90,8 @@ void Settings::loadDefault() {
     intVal = 80;
     settings_["height"]=GenericSetting(&intVal);
 
-    intVal = 40;
-    settings_["stepSizeXMin"]=GenericSetting(&intVal);
-
-    intVal = 40;
-    settings_["stepSizeXMax"]=GenericSetting(&intVal);
-
-    intVal = 40;
-    settings_["stepSizeYMin"]=GenericSetting(&intVal);
-
-    intVal = 40;
-    settings_["stepSizeYMax"]=GenericSetting(&intVal);
-
     float floatVal(1.f);
-    settings_["maxHeight"]=GenericSetting(&floatVal);
-
-    floatVal = 0.f;
-    settings_["minHeight"]=GenericSetting(&floatVal);
-
-    floatVal = 0.5f;
-    settings_["maxHeightFrequency"]=GenericSetting(&floatVal);
+    settings_["baseNiveau"]=GenericSetting(&floatVal);
 
     intVal = 40;
     settings_["noiseFactor"]=GenericSetting(&intVal);

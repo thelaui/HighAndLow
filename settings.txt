@@ -4,11 +4,5 @@
 
 width int 640 
 height int 640
-stepSizeXMin int 50
-stepSizeXMax int 200
-stepSizeYMin int 80
-stepSizeYMax int 100
-maxHeight float 1
-minHeight float 1
-maxHeightFrequency float 0.1
+baseNiveau float 0.75
 noiseFactor int 0

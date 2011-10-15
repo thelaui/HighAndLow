@@ -14,11 +14,8 @@ class MapGenerator {
         std::map<int, float> randomPointsHor_;
         std::map<int, float> randomPointsVer_;
 
-        void generateRandomPoints();
+        void createBaseNiveau();
 
-        void interpolate();
-
-        float linear(int x, std::map<int, float> const& points) const;
         void generateNoise();
 };
 
