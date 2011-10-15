@@ -4,5 +4,5 @@
 
 width int 640 
 height int 640
-baseNiveau float 0.75
-noiseFactor int 0
+baseNiveau float 0.25
+noiseFactor int 10
