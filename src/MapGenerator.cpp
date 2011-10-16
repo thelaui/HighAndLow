@@ -36,7 +36,6 @@ void MapGenerator::createBaseNiveau() {
     for (auto pixel(0); pixel < heightMap_.size(); ++pixel) {
         heightMap_[pixel] = static_cast<unsigned char>(baseNiveau*255);
     }
-
 }
 
 void MapGenerator::generateNoise() {
@@ -44,11 +43,11 @@ void MapGenerator::generateNoise() {
     auto settings(Settings::pointer());
     Clamper clamper;
 
-    auto noiseFactor(std::abs(settings->getValueOf<int>("noiseFactor")));
-    clamper.clamp<int>(noiseFactor, 0, 255);
+    auto noiseFactor(std::abs(settings->getValueOf<float>("noiseFactor")));
+    clamper.clamp<float>(noiseFactor, 0.f, 1.f);
 
     for (auto i(0); i < heightMap_.size(); ++i) {
-        int randomDiff(randomizer->random(-noiseFactor,noiseFactor));
+        int randomDiff(randomizer->random(-noiseFactor*255,noiseFactor*255));
         auto newVal(static_cast<int>(heightMap_[i] + randomDiff));
         clamper.clamp<int>(newVal, 0, 255);
         heightMap_[i] = newVal;

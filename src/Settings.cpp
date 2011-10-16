@@ -93,8 +93,8 @@ void Settings::loadDefault() {
     float floatVal(1.f);
     settings_["baseNiveau"]=GenericSetting(&floatVal);
 
-    intVal = 40;
-    settings_["noiseFactor"]=GenericSetting(&intVal);
+    floatVal = 0.5f;
+    settings_["noiseFactor"]=GenericSetting(&floatVal);
 
     std::cout << "Default settings loaded." << std::endl;
 

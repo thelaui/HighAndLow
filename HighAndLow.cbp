@@ -30,10 +30,10 @@
 		</Build>
 		<Compiler>
 			<Add option="-std=c++0x" />
-			<Add option="-Wall" />
 			<Add directory="." />
 		</Compiler>
 		<Unit filename="include/BMPwriter.hpp" />
+		<Unit filename="include/Clamper.hpp" />
 		<Unit filename="include/KnownObject.hpp" />
 		<Unit filename="include/MapGenerator.hpp" />
 		<Unit filename="include/Randomizer.hpp" />
