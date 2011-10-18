@@ -51,7 +51,8 @@ int main(int argc, char* argv[]) {
 
     BMPwriter writer;
     MapGenerator mapGen;
-    writer.save(targetName, mapGen.generateHeightMap(), settings.getValueOf<int>("width"), settings.getValueOf<int>("height"));
+    auto map(mapGen.generateHeightMap());
+    writer.save(targetName, map, settings.getValueOf<int>("width"), settings.getValueOf<int>("height"));
 
 
     while (true) {
@@ -68,9 +69,9 @@ int main(int argc, char* argv[]) {
             Settings settings;
             settings.load(fileName);
 
-            BMPwriter writer;
             MapGenerator mapGen;
-            writer.save(targetName, mapGen.generateHeightMap(), settings.getValueOf<int>("width"), settings.getValueOf<int>("height"));
+            auto map(mapGen.generateHeightMap());
+            writer.save(targetName, map, settings.getValueOf<int>("width"), settings.getValueOf<int>("height"));
 
         }
 

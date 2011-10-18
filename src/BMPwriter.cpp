@@ -8,8 +8,8 @@ void BMPwriter::save(std::string const& fileName, std::vector<unsigned char> con
 
     bitmap_image bmpFile(width, height);
 
-    for (auto y(0); y <height; ++y) {
-        for (auto x(0); x <width; ++x) {
+    for (auto y(0); y < height; ++y) {
+        for (auto x(0); x < width; ++x) {
             auto colorVal(pixels[x+y*width]);
             bmpFile.set_pixel(x, y, colorVal, colorVal, colorVal);
         }

@@ -15,6 +15,8 @@ class MapGenerator {
         std::map<int, float> randomPointsVer_;
 
         void createBaseNiveau();
+        void createMountains();
+
 
         void generateNoise();
 };

@@ -94,6 +94,9 @@ void Settings::loadDefault() {
     settings_["baseNiveau"]=GenericSetting(&floatVal);
 
     floatVal = 0.5f;
+    settings_["maxHeight"]=GenericSetting(&floatVal);
+
+    floatVal = 0.5f;
     settings_["noiseFactor"]=GenericSetting(&floatVal);
 
     std::cout << "Default settings loaded." << std::endl;
